@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Edit Product</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+        /* Header */
+        header {
+            background: #2878e8;
+            padding: 15px 30px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Form */
+        .form-container {
+
+            width: 500px;
+            max-width: 90%;
+
+            margin: 40px auto;
+
+            padding: 30px;
+
+            background: white;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.15);
+
+            box-sizing: border-box;
+        }
+
+        .form-container h1 {
+
+            text-align: center;
+
+            margin-top: 0;
+            margin-bottom: 30px;
+
+            color: #222;
+        }
+
+        /* Form */
+        .form-container form {
+
+            display: flex;
+
+            flex-direction: column;
+        }
+
+        .form-container label {
+
+            font-weight: bold;
+
+            margin-top: 15px;
+            margin-bottom: 7px;
+
+            color: #333;
+        }
+
+        .form-container input,
+        .form-container textarea {
+
+            width: 100%;
+
+            padding: 11px;
+
+            box-sizing: border-box;
+
+            border: 1px solid #ccc;
+
+            border-radius: 6px;
+
+            font-size: 15px;
+
+            outline: none;
+        }
+
+        .form-container input:focus,
+        .form-container textarea:focus {
+
+            border-color: #2878e8;
+        }
+
+        .form-container textarea {
+
+            resize: vertical;
+
+            min-height: 120px;
+        }
+
+        /* Current Image */
+        .current-image {
+
+            text-align: center;
+
+            margin: 10px 0 15px;
+        }
+
+        .current-image img {
+
+            width: 180px;
+
+            height: 180px;
+
+            object-fit: cover;
+
+            border-radius: 10px;
+
+            border: 1px solid #ddd;
+        }
+
+        .no-image {
+
+            color: #777;
+
+            text-align: center;
+        }
+
+        /* Image note */
+        .image-note {
+
+            font-size: 13px;
+
+            color: #777;
+
+            margin-top: 7px;
+        }
+
+        /* Update Button */
+        .update-btn {
+
+            width: 100%;
+
+            margin-top: 25px;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #2878e8;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .update-btn:hover {
+
+            background: #1769d0;
+        }
+
+        /* Back Button */
+        .back-btn {
+
+            display: block;
+
+            width: fit-content;
+
+            margin: 20px auto 0;
+
+            padding: 9px 18px;
+
+            background: #eee;
+
+            color: #333;
+
+            text-decoration: none;
+
+            border-radius: 6px;
+
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+
+            background: #ddd;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- Header -->
+
+<header>
+
+    <nav>
+
+        <div class="logo">
+            IshaLoops
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="/">Home</a>
+            </li>
+
+            <li>
+                <a href="/products">Products</a>
+            </li>
+
+            <li>
+                <a href="/cart">My Cart</a>
+            </li>
+
+            <li>
+                <a href="/my_orders">My Orders</a>
+            </li>
+
+            <li>
+                <a href="/logout">Logout</a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+
+<!-- Edit Product Form -->
+
+<div class="form-container">
+
+    <h1>
+        ✏️ Edit Product
+    </h1>
+
+
+    <form method="POST"
+          enctype="multipart/form-data">
+
+
+        <!-- Product Name -->
+
+        <label>
+            Product Name
+        </label>
+
+        <input
+            type="text"
+            name="product_name"
+            value="{{ product.product_name }}"
+            required
+        >
+
+
+        <!-- Price -->
+
+        <label>
+            Price
+        </label>
+
+        <input
+            type="number"
+            name="price"
+            step="0.01"
+            value="{{ product.price }}"
+            required
+        >
+
+
+        <!-- Quantity -->
+
+        <label>
+            Quantity
+        </label>
+
+        <input
+            type="number"
+            name="quantity"
+            value="{{ product.quantity }}"
+            required
+        >
+
+
+        <!-- Description -->
+
+        <label>
+            Description
+        </label>
+
+        <textarea
+            name="description"
+            placeholder="Enter product description..."
+            required
+        >{{ product.description }}</textarea>
+
+
+        <!-- Current Image -->
+
+        <label>
+            Current Image
+        </label>
+
+        <div class="current-image">
+
+            {% if product.image %}
+
+                <img
+                    src="{{ url_for(
+                        'static',
+                        filename='uploads/' + product.image
+                    ) }}"
+                    alt="{{ product.product_name }}"
+                >
+
+            {% else %}
+
+                <p class="no-image">
+                    No Image Available
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- Change Image -->
+
+        <label>
+            Change Product Image
+        </label>
+
+        <input
+            type="file"
+            name="image"
+            accept="image/*"
+        >
+
+        <p class="image-note">
+            Leave empty if you want to keep the current image.
+        </p>
+
+
+        <!-- Update -->
+
+        <button
+            type="submit"
+            class="update-btn"
+        >
+            ✅ Update Product
+        </button>
+
+
+    </form>
+
+
+    <!-- Back -->
+
+    <a
+        href="/admin"
+        class="back-btn"
+    >
+        ⬅ Back to Admin
+    </a>
+
+
+</div>
+
+
+</body>
+</html>

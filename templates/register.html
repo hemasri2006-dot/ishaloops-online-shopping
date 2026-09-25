@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Register | IshaLoops</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        /* =========================
+           REGISTER PAGE
+        ========================= */
+
+        .register-page {
+
+            min-height: calc(100vh - 75px);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 40px 20px;
+
+            background:
+                linear-gradient(
+                    rgba(255, 240, 247, 0.88),
+                    rgba(255, 248, 252, 0.94)
+                );
+        }
+
+
+        .register-container {
+
+            width: 100%;
+
+            max-width: 950px;
+
+            min-height: 540px;
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            background: white;
+
+            border-radius: 25px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 15px 45px rgba(120, 55, 80, 0.15);
+        }
+
+
+        /* =========================
+           LEFT SIDE
+        ========================= */
+
+        .register-welcome {
+
+            background:
+                linear-gradient(
+                    rgba(190, 66, 108, 0.75),
+                    rgba(110, 45, 75, 0.82)
+                ),
+                url("{{ url_for('static', filename='uploads/comdo.webp') }}");
+
+            background-size: cover;
+
+            background-position: center;
+
+            color: white;
+
+            padding: 50px 40px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+        }
+
+
+        .register-icon {
+
+            font-size: 45px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .register-welcome h1 {
+
+            font-family: Georgia, serif;
+
+            font-size: 45px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .register-welcome h2 {
+
+            font-size: 24px;
+
+            margin-bottom: 15px;
+
+            font-weight: 500;
+        }
+
+
+        .register-welcome p {
+
+            max-width: 350px;
+
+            line-height: 1.7;
+
+            font-size: 16px;
+        }
+
+
+        /* =========================
+           RIGHT SIDE
+        ========================= */
+
+        .register-box {
+
+            padding: 45px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+        }
+
+
+        .register-box h2 {
+
+            font-family: Georgia, serif;
+
+            text-align: center;
+
+            color: #38252c;
+
+            font-size: 32px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .register-subtitle {
+
+            text-align: center;
+
+            color: #80616d;
+
+            margin-bottom: 28px;
+
+            font-size: 14px;
+        }
+
+
+        .register-form {
+
+            width: 100%;
+        }
+
+
+        .register-input-group {
+
+            margin-bottom: 18px;
+        }
+
+
+        .register-input-group label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #4d3540;
+
+            font-weight: bold;
+
+            font-size: 14px;
+        }
+
+
+        .register-input-group input {
+
+            width: 100%;
+
+            padding: 14px 16px;
+
+            border: 1px solid #e2cbd4;
+
+            border-radius: 10px;
+
+            outline: none;
+
+            font-size: 15px;
+
+            background: #fffafd;
+
+            transition: 0.3s;
+        }
+
+
+        .register-input-group input:focus {
+
+            border-color: #d64c7b;
+
+            box-shadow:
+                0 0 0 3px rgba(214, 76, 123, 0.10);
+        }
+
+
+        .register-button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #d64c7b;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            margin-top: 5px;
+        }
+
+
+        .register-button:hover {
+
+            background: #b93662;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 7px 18px rgba(214, 76, 123, 0.25);
+        }
+
+
+        .login-text {
+
+            text-align: center;
+
+            margin-top: 23px;
+
+            color: #80616d;
+
+            font-size: 14px;
+        }
+
+
+        .login-text a {
+
+            color: #d64c7b;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+
+        .login-text a:hover {
+
+            text-decoration: underline;
+        }
+
+
+        .register-back-home {
+
+            display: block;
+
+            text-align: center;
+
+            margin-top: 16px;
+
+            color: #6d5960;
+
+            text-decoration: none;
+
+            font-size: 14px;
+        }
+
+
+        .register-back-home:hover {
+
+            color: #d64c7b;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .register-page {
+
+                padding: 25px 15px;
+
+                min-height: calc(100vh - 75px);
+            }
+
+
+            .register-container {
+
+                grid-template-columns: 1fr;
+
+                min-height: auto;
+
+                border-radius: 20px;
+            }
+
+
+            .register-welcome {
+
+                min-height: 230px;
+
+                padding: 30px 25px;
+            }
+
+
+            .register-welcome h1 {
+
+                font-size: 35px;
+            }
+
+
+            .register-welcome h2 {
+
+                font-size: 20px;
+            }
+
+
+            .register-welcome p {
+
+                font-size: 14px;
+            }
+
+
+            .register-icon {
+
+                font-size: 35px;
+
+                margin-bottom: 8px;
+            }
+
+
+            .register-box {
+
+                padding: 35px 25px;
+            }
+
+
+            .register-box h2 {
+
+                font-size: 28px;
+            }
+
+        }
+
+
+        @media (max-width: 400px) {
+
+            .register-page {
+
+                padding: 15px 10px;
+            }
+
+
+            .register-welcome {
+
+                min-height: 210px;
+
+                padding: 25px 18px;
+            }
+
+
+            .register-box {
+
+                padding: 30px 18px;
+            }
+
+
+            .register-welcome h1 {
+
+                font-size: 30px;
+            }
+
+
+            .register-input-group input {
+
+                padding: 13px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <nav>
+
+        <div class="logo">
+            IshaLoops
+        </div>
+
+
+        <ul>
+
+            <li>
+                <a href="/">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="/products">
+                    Products
+                </a>
+            </li>
+
+            <li>
+                <a href="/login">
+                    Login
+                </a>
+            </li>
+
+            <li>
+                <a href="/register">
+                    Register
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =========================
+     REGISTER
+========================= -->
+
+<main class="register-page">
+
+
+    <div class="register-container">
+
+
+        <!-- LEFT SIDE -->
+
+        <div class="register-welcome">
+
+            <div class="register-icon">
+                🎀
+            </div>
+
+
+            <h1>
+                IshaLoops
+            </h1>
+
+
+            <h2>
+                Join Our Family!
+            </h2>
+
+
+            <p>
+                Create your account and discover
+                beautiful handmade scrunchies and
+                bows made especially for you.
+            </p>
+
+        </div>
+
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="register-box">
+
+            <h2>
+                Create Account
+            </h2>
+
+
+            <p class="register-subtitle">
+                Register to start shopping
+            </p>
+
+
+            <form
+                action="/register"
+                method="POST"
+                class="register-form"
+            >
+
+
+                <!-- FULL NAME -->
+
+                <div class="register-input-group">
+
+                    <label for="full_name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="full_name"
+                        name="full_name"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="register-input-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+               <div class="register-input-group">
+                <label for="password">Password</label>
+                <div class="password-wrapper">
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="Create a password" 
+                        autocomplete="new-password" 
+                        required
+                    >
+                </div>
+            </div>
+
+
+
+                <!-- REGISTER BUTTON -->
+
+                <button
+                    type="submit"
+                    class="register-button"
+                >
+                    Create Account →
+                </button>
+
+
+            </form>
+
+
+
+            <!-- LOGIN -->
+
+            <p class="login-text">
+
+                Already have an account?
+
+                <a href="/login">
+                    Login
+                </a>
+
+            </p>
+
+
+            <!-- HOME -->
+
+            <a
+                href="/"
+                class="register-back-home"
+            >
+                ← Back to Home
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+</main>
+
+</body>
+
+</html>

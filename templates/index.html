@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>IshaLoops | Scrunchies & Bows</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff9fc;
+            color: #3d2630;
+        }
+
+
+        /* =========================
+           TOP BAR
+        ========================= */
+
+        .top-bar {
+            background: #fff0f5;
+            color: #6b3045;
+            padding: 9px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        header {
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        nav {
+            min-height: 78px;
+            padding: 10px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-image {
+            width: 65px;
+            height: 65px;
+            object-fit: contain;
+        }
+
+        .brand-name {
+            font-family: Georgia, serif;
+            font-size: 30px;
+            color: #d64c7b;
+            font-weight: bold;
+        }
+
+        .brand-tagline {
+            font-size: 12px;
+            color: #6e4a56;
+            margin-top: 2px;
+        }
+
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #38252c;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #d64c7b;
+        }
+
+
+        .nav-button {
+            padding: 10px 18px;
+            border: 1px solid #d64c7b;
+            border-radius: 7px;
+            color: #d64c7b !important;
+        }
+
+        .nav-button.register {
+            background: #d64c7b;
+            color: white !important;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: calc(100vh - 98px);
+
+            background:
+                linear-gradient(
+                    rgba(255, 235, 244, 0.38),
+                    rgba(255, 235, 244, 0.38)
+                ),
+                url("{{ url_for('static', filename='uploads/combo.webp') }}");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 60px 20px;
+        }
+
+
+        .hero-content {
+            width: min(650px, 95%);
+            padding: 50px 45px;
+
+            background: rgba(255,255,255,0.90);
+
+            border-radius: 25px;
+
+            text-align: center;
+
+            box-shadow:
+                0 15px 50px rgba(90,40,60,0.15);
+
+            backdrop-filter: blur(5px);
+        }
+
+
+        .hero-small {
+            display: inline-block;
+
+            background: #fff0f5;
+            color: #d64c7b;
+
+            padding: 8px 18px;
+
+            border-radius: 30px;
+
+            font-size: 14px;
+            font-weight: bold;
+
+            margin-bottom: 20px;
+        }
+
+
+        .hero h1 {
+            font-family: Georgia, serif;
+
+            font-size: clamp(40px, 6vw, 70px);
+
+            line-height: 1.1;
+
+            color: #38252c;
+
+            margin-bottom: 10px;
+        }
+
+
+        .hero h1 span {
+            color: #d64c7b;
+        }
+
+
+        .hero p {
+            font-size: 18px;
+
+            line-height: 1.7;
+
+            color: #654b55;
+
+            margin-bottom: 30px;
+        }
+
+
+        .shop-btn {
+            display: inline-block;
+
+            background: #d64c7b;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 14px 35px;
+
+            border-radius: 30px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+
+            box-shadow: 0 6px 18px rgba(214,76,123,0.30);
+        }
+
+
+        .shop-btn:hover {
+            background: #b93662;
+            transform: translateY(-3px);
+        }
+
+
+        /* =========================
+           FEATURES
+        ========================= */
+
+        .features {
+            width: 90%;
+            max-width: 1200px;
+
+            margin: 45px auto;
+
+            background: white;
+
+            border-radius: 20px;
+
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+
+        .feature {
+            padding: 30px;
+
+            text-align: center;
+
+            border-right: 1px solid #f0dce4;
+        }
+
+        .feature:last-child {
+            border-right: none;
+        }
+
+
+        .feature h3 {
+            color: #d64c7b;
+            margin-bottom: 10px;
+        }
+
+
+        .feature p {
+            color: #6d5960;
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           SECTION TITLE
+        ========================= */
+
+        .section-title {
+            text-align: center;
+
+            margin: 70px 0 30px;
+        }
+
+
+        .section-title h2 {
+            font-family: Georgia, serif;
+
+            font-size: 35px;
+
+            color: #38252c;
+        }
+
+
+        .section-title p {
+            margin-top: 8px;
+            color: #80616d;
+        }
+
+
+        /* =========================
+           COLLECTIONS
+        ========================= */
+
+        .collections {
+            width: 90%;
+            max-width: 1200px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 25px;
+        }
+
+
+        .collection-card {
+            position: relative;
+
+            height: 300px;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            background: #f8dce7;
+
+            display: flex;
+
+            align-items: flex-end;
+
+            padding: 30px;
+
+            transition: 0.4s;
+        }
+
+
+        .collection-card:hover {
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 15px 30px rgba(0,0,0,0.15);
+        }
+
+
+        .collection-card::before {
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    transparent 30%,
+                    rgba(0,0,0,0.65)
+                );
+
+            z-index: 1;
+        }
+
+
+        .scrunchie-collection {
+            background:
+                url("{{ url_for('static', filename='uploads/scrunchis.webp') }}")
+                center / cover;
+        }
+
+
+        .bow-collection {
+            background:
+                url("{{ url_for('static', filename='uploads/bow.webp') }}")
+                center / cover;
+        }
+
+
+        .collection-content {
+            position: relative;
+
+            z-index: 2;
+
+            color: white;
+        }
+
+
+        .collection-content h3 {
+            font-family: Georgia, serif;
+
+            font-size: 30px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .collection-btn {
+            display: inline-block;
+
+            background: #d64c7b;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 10px 20px;
+
+            border-radius: 25px;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           FEATURED PRODUCTS
+        ========================= */
+
+        .featured-products {
+            width: 90%;
+            max-width: 1200px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(190px, 1fr));
+
+            gap: 20px;
+        }
+
+
+        .home-product-card {
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 15px;
+
+            text-align: center;
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+
+            transition: 0.3s;
+        }
+
+
+        .home-product-card:hover {
+            transform: translateY(-7px);
+
+            box-shadow:
+                0 12px 28px rgba(0,0,0,0.14);
+        }
+
+
+        .home-product-card img {
+            width: 100%;
+            height: 190px;
+
+            object-fit: cover;
+
+            border-radius: 12px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .home-product-card h3 {
+            color: #38252c;
+
+            margin-bottom: 8px;
+        }
+
+
+        .price {
+            color: #d64c7b;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            margin-bottom: 12px;
+        }
+
+
+        .product-btn {
+            display: inline-block;
+
+            padding: 9px 18px;
+
+            border-radius: 20px;
+
+            background: #d64c7b;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 14px;
+        }
+
+
+        .view-all {
+            text-align: center;
+
+            margin: 35px 0 70px;
+        }
+
+
+        .view-all a {
+            display: inline-block;
+
+            padding: 12px 30px;
+
+            border: 2px solid #d64c7b;
+
+            color: #d64c7b;
+
+            border-radius: 25px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+
+        .view-all a:hover {
+            background: #d64c7b;
+            color: white;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #fff0f5;
+
+            margin-top: 60px;
+
+            padding: 50px 7% 20px;
+        }
+
+
+        .footer-grid {
+            display: grid;
+
+            grid-template-columns:
+                2fr 1fr 1fr 1.5fr;
+
+            gap: 40px;
+
+            max-width: 1200px;
+
+            margin: auto;
+        }
+
+
+        .footer-brand h2 {
+            font-family: Georgia, serif;
+
+            color: #d64c7b;
+
+            font-size: 32px;
+
+            margin-bottom: 10px;
+        }
+
+
+        footer h3 {
+            color: #d64c7b;
+
+            margin-bottom: 15px;
+        }
+
+
+        footer p {
+            color: #654b55;
+
+            line-height: 1.7;
+        }
+
+
+        footer ul {
+            list-style: none;
+        }
+
+
+        footer ul li {
+            margin-bottom: 10px;
+        }
+
+
+        footer ul li a {
+            text-decoration: none;
+
+            color: #654b55;
+
+            transition: 0.3s;
+        }
+
+
+        footer ul li a:hover {
+            color: #d64c7b;
+        }
+
+
+        .footer-bottom {
+            text-align: center;
+
+            border-top: 1px solid #e7c5d2;
+
+            margin-top: 40px;
+
+            padding-top: 20px;
+
+            color: #765967;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .feature {
+                border-right: none;
+                border-bottom: 1px solid #f0dce4;
+            }
+
+            .feature:last-child {
+                border-bottom: none;
+            }
+
+            .collections {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+
+        @media (max-width: 600px) {
+
+            .top-bar {
+                display: none;
+            }
+
+            nav {
+                padding: 10px 15px;
+            }
+
+            .brand-name {
+                font-size: 25px;
+            }
+
+            .logo-image {
+                width: 50px;
+                height: 50px;
+            }
+
+            nav ul {
+                gap: 10px;
+                font-size: 13px;
+            }
+
+            .hero {
+                min-height: 85vh;
+            }
+
+            .hero-content {
+                padding: 35px 20px;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     TOP BAR
+========================= -->
+
+<div class="top-bar">
+
+    <span>💗 Handmade with Love</span>
+
+    <span>🚚 Free Shipping on Orders above ₹499</span>
+
+    <span>📞 Contact Us</span>
+
+</div>
+
+
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
+<header>
+
+<nav>
+
+    <div class="logo-area">
+
+        <img
+            src="{{ url_for('static', filename='uploads/logo.png') }}"
+            alt="IshaLoops Logo"
+            class="logo-image"
+        >
+
+        <div>
+
+            <div class="brand-name">
+                IshaLoops
+            </div>
+
+            <div class="brand-tagline">
+                ♥ Scrunchies & Bows ♥
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <ul>
+
+        <li>
+            <a href="/">
+                Home
+            </a>
+        </li>
+
+        <li>
+            <a href="/products">
+                Products
+            </a>
+        </li>
+
+        <li>
+            <a href="/cart">
+                🛒 My Cart
+            </a>
+        </li>
+
+        <li>
+            <a href="/my_orders">
+                My Orders
+            </a>
+        </li>
+
+        <li>
+            <a href="/login" class="nav-button">
+                Login
+            </a>
+        </li>
+
+        <li>
+            <a href="/register"
+               class="nav-button register">
+                Register
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+</header>
+
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="hero-small">
+            💗 HANDMADE WITH LOVE
+        </div>
+
+
+        <h1>
+            Stylish. Handmade.
+            <br>
+            <span>You.</span>
+        </h1>
+
+
+        <p>
+            Beautiful scrunchies and bows,
+            carefully handmade to add
+            a little extra charm to your everyday style.
+        </p>
+
+
+        <a href="/products"
+           class="shop-btn">
+
+            SHOP NOW →
+            
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     FEATURES
+========================= -->
+
+<section class="features">
+
+    <div class="feature">
+
+        <h3>
+            💗 Handmade with Love
+        </h3>
+
+        <p>
+            Every piece is handcrafted
+            with care and attention to detail.
+        </p>
+
+    </div>
+
+
+    <div class="feature">
+
+        <h3>
+            🎀 Stylish Designs
+        </h3>
+
+        <p>
+            Trendy and beautiful designs
+            for every mood and occasion.
+        </p>
+
+    </div>
+
+
+    <div class="feature">
+
+        <h3>
+            💎 Premium Quality
+        </h3>
+
+        <p>
+            Carefully selected fabrics
+            for comfort and lasting beauty.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     COLLECTIONS
+========================= -->
+
+<div class="section-title">
+
+    <h2>
+        Shop the Collections
+    </h2>
+
+    <p>
+        Find something beautiful for your style
+    </p>
+
+</div>
+
+
+
+<section class="collections">
+
+
+    <div class="collection-card scrunchie-collection">
+
+        <div class="collection-content">
+
+            <h3>
+                Shop Scrunchies
+            </h3>
+
+            <a href="/products"
+               class="collection-btn">
+
+                Explore Now
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="collection-card bow-collection">
+
+        <div class="collection-content">
+
+            <h3>
+                Shop Bows
+            </h3>
+
+            <a href="/products"
+               class="collection-btn">
+
+                Explore Now
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     FEATURED PRODUCTS
+========================= -->
+
+<div class="section-title">
+
+    <h2>
+        Featured Products
+    </h2>
+
+    <p>
+        Some of our beautiful handmade favourites
+    </p>
+
+</div>
+
+
+
+<section class="featured-products">
+
+
+    <div class="home-product-card">
+
+        <img
+            src="{{ url_for('static', filename='uploads/scrunchis.webp') }}"
+            alt="Scrunchie"
+        >
+
+        <h3>
+            Satin Scrunchie
+        </h3>
+
+        <div class="price">
+            ₹25
+        </div>
+
+        <a href="/products"
+           class="product-btn">
+
+            View Product
+
+        </a>
+
+    </div>
+
+
+
+    <div class="home-product-card">
+
+        <img
+            src="{{ url_for('static', filename='uploads/black.jpg') }}"
+            alt="Black Scrunchie"
+        >
+
+        <h3>
+            Black Scrunchie
+        </h3>
+
+        <div class="price">
+            ₹25
+        </div>
+
+        <a href="/products"
+           class="product-btn">
+
+            View Product
+
+        </a>
+
+    </div>
+
+
+
+    <div class="home-product-card">
+
+        <img
+            src="{{ url_for('static', filename='uploads/bow.webp') }}"
+            alt="Long Bow"
+        >
+
+        <h3>
+            Long Satin Bow
+        </h3>
+
+        <div class="price">
+            ₹75
+        </div>
+
+        <a href="/products"
+           class="product-btn">
+
+            View Product
+
+        </a>
+
+    </div>
+
+
+
+    <div class="home-product-card">
+
+        <img
+            src="{{ url_for('static', filename='uploads/bow1.webp') }}"
+            alt="Bow"
+        >
+
+        <h3>
+            Stylish Bow
+        </h3>
+
+        <div class="price">
+            ₹50
+        </div>
+
+        <a href="/products"
+           class="product-btn">
+
+            View Product
+
+        </a>
+
+    </div>
+
+
+
+</section>
+
+
+
+<div class="view-all">
+
+    <a href="/products">
+        VIEW ALL PRODUCTS
+    </a>
+
+</div>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div class="footer-grid">
+
+
+        <div class="footer-brand">
+
+            <h2>
+                IshaLoops
+            </h2>
+
+            <p>
+                Scrunchies & Bows
+            </p>
+
+            <br>
+
+            <p>
+                Handmade with love to make
+                you feel beautiful every day.
+            </p>
+
+        </div>
+
+
+
+        <div>
+
+            <h3>
+                Quick Links
+            </h3>
+
+            <ul>
+
+                <li>
+                    <a href="/">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/products">
+                        Products
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/cart">
+                        My Cart
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/my_orders">
+                        My Orders
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+
+        <div>
+
+            <h3>
+                Customer Service
+            </h3>
+
+            <ul>
+
+                <li>
+                    <a href="#">
+                        About Us
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Shipping Policy
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Return & Exchange
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Privacy Policy
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+
+        <div>
+
+            <h3>
+                Contact Us
+            </h3>
+
+            <p>
+                📞 +91 XXXXX XXXXX
+            </p>
+
+            <p>
+                ✉️ ishaloops@gmail.com
+            </p>
+
+            <p>
+                📍 Andhra Pradesh, India
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="footer-bottom">
+
+        © 2026 IshaLoops. All Rights Reserved.
+
+        <br><br>
+
+        Made with 💗 for you
+
+    </div>
+
+</footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Orders | IshaLoops</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fff9fc;
+            color: #333;
+        }
+
+
+        /* ================= HEADER ================= */
+
+        header {
+            background: white;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+
+        nav {
+            max-width: 1250px;
+            height: 85px;
+
+            margin: auto;
+            padding: 0 25px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+
+        .logo {
+            font-family: Georgia, serif;
+            font-size: 32px;
+            font-weight: bold;
+            color: #c94f78;
+        }
+
+
+        nav ul {
+            list-style: none;
+
+            display: flex;
+            align-items: center;
+
+            gap: 22px;
+
+            margin: 0;
+            padding: 0;
+        }
+
+
+        nav ul li a {
+            text-decoration: none;
+
+            color: #333;
+
+            font-size: 15px;
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+
+        nav ul li a:hover {
+            color: #d95782;
+        }
+
+
+        /* ================= CONTAINER ================= */
+
+        .orders-container {
+
+            max-width: 1250px;
+
+            margin: 45px auto;
+
+            padding: 0 20px;
+        }
+
+
+        .page-title {
+
+            text-align: center;
+
+            margin-bottom: 30px;
+        }
+
+
+        .page-title h1 {
+
+            margin: 0;
+
+            font-family: Georgia, serif;
+
+            font-size: 38px;
+
+            color: #4d3550;
+        }
+
+
+        .page-title p {
+
+            color: #777;
+
+            margin-top: 8px;
+        }
+
+
+        /* ================= BACK BUTTON ================= */
+
+        .back-btn {
+
+            display: inline-block;
+
+            margin-bottom: 22px;
+
+            padding: 11px 20px;
+
+            background: #d95782;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 25px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+
+        .back-btn:hover {
+
+            background: #bd426b;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* ================= TABLE CARD ================= */
+
+        .table-card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 15px;
+
+            box-shadow:
+                0 6px 25px rgba(0,0,0,0.08);
+
+            overflow-x: auto;
+        }
+
+
+        /* ================= TABLE ================= */
+
+        .orders-table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 900px;
+        }
+
+
+        .orders-table th {
+
+            padding: 16px 12px;
+
+            background: #f5dce6;
+
+            color: #5b3a4a;
+
+            font-size: 14px;
+
+            text-align: center;
+
+            white-space: nowrap;
+        }
+
+
+        .orders-table td {
+
+            padding: 15px 12px;
+
+            border-bottom: 1px solid #eee;
+
+            text-align: center;
+
+            font-size: 14px;
+
+            color: #555;
+        }
+
+
+        .orders-table tbody tr {
+
+            transition: 0.25s;
+        }
+
+
+        .orders-table tbody tr:hover {
+
+            background: #fff6fa;
+        }
+
+
+        /* ================= ORDER ID ================= */
+
+        .order-id {
+
+            font-weight: bold;
+
+            color: #c94f78;
+        }
+
+
+        /* ================= USER ID ================= */
+
+        .user-id {
+
+            display: inline-block;
+
+            padding: 5px 9px;
+
+            border-radius: 12px;
+
+            background: #f1edf5;
+
+            color: #5c4a66;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+
+        /* ================= PRODUCT ================= */
+
+        .product-name {
+
+            font-weight: bold;
+
+            color: #4d3550;
+        }
+
+
+        /* ================= PRICE ================= */
+
+        .price {
+
+            font-weight: 600;
+
+            color: #555;
+        }
+
+
+        /* ================= TOTAL ================= */
+
+        .total {
+
+            font-weight: bold;
+
+            color: #d95782;
+
+            font-size: 15px;
+        }
+
+
+        /* ================= STATUS ================= */
+
+        .status {
+
+            display: inline-block;
+
+            padding: 7px 13px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+
+        .status-placed {
+
+            background: #e7f7ed;
+
+            color: #258a48;
+        }
+
+
+        .status-cancelled {
+
+            background: #fbe4e8;
+
+            color: #c43e5b;
+        }
+
+
+        /* ================= NO ORDERS ================= */
+
+        .no-orders {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 70px 20px;
+
+            text-align: center;
+
+            box-shadow:
+                0 6px 25px rgba(0,0,0,0.08);
+        }
+
+
+        .no-orders h2 {
+
+            color: #4d3550;
+
+            margin-bottom: 10px;
+        }
+
+
+        .no-orders p {
+
+            color: #777;
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 700px) {
+
+            nav {
+
+                height: auto;
+
+                padding: 18px;
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+
+            nav ul {
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+
+                gap: 14px;
+            }
+
+
+            .orders-container {
+
+                margin-top: 30px;
+
+                padding: 0 12px;
+            }
+
+
+            .page-title h1 {
+
+                font-size: 30px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <nav>
+
+        <div class="logo">
+            IshaLoops
+        </div>
+
+
+        <ul>
+
+            <li>
+                <a href="/">Home</a>
+            </li>
+
+            <li>
+                <a href="/products">Products</a>
+            </li>
+
+            <li>
+                <a href="/admin">Admin</a>
+            </li>
+
+            <li>
+                <a href="/logout">Logout</a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+
+<!-- ================= ORDERS ================= -->
+
+<div class="orders-container">
+
+
+    <div class="page-title">
+
+        <h1>
+            📦 Customer Orders
+        </h1>
+
+        <p>
+            Manage and view all customer orders
+        </p>
+
+    </div>
+
+
+    <a
+        href="/admin"
+        class="back-btn"
+    >
+        ⬅ Back to Admin
+    </a>
+
+
+    {% if orders %}
+
+
+    <div class="table-card">
+
+
+        <table class="orders-table">
+
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Order ID
+                    </th>
+
+                    <th>
+                        User ID
+                    </th>
+
+                    <th>
+                        Product
+                    </th>
+
+                    <th>
+                        Quantity
+                    </th>
+
+                    <th>
+                        Price
+                    </th>
+
+                    <th>
+                        Total Amount
+                    </th>
+
+                    <th>
+                        Order Date
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+            {% for order in orders %}
+
+
+                <tr>
+
+
+                    <!-- ORDER ID -->
+
+                    <td>
+
+                        <span class="order-id">
+                            #{{ order.order_id }}
+                        </span>
+
+                    </td>
+
+
+                    <!-- USER ID -->
+
+                    <td>
+
+                        <span class="user-id">
+                            User {{ order.user_id }}
+                        </span>
+
+                    </td>
+
+
+                    <!-- PRODUCT -->
+
+                    <td>
+
+                        <span class="product-name">
+                            {{ order.product_name }}
+                        </span>
+
+                    </td>
+
+
+                    <!-- QUANTITY -->
+
+                    <td>
+                        {{ order.quantity }}
+                    </td>
+
+
+                    <!-- PRICE -->
+
+                    <td>
+
+                        <span class="price">
+                            ₹{{ order.price }}
+                        </span>
+
+                    </td>
+
+
+                    <!-- TOTAL -->
+
+                    <td>
+
+                        <span class="total">
+
+                            {% if order.total_amount is defined %}
+
+                                ₹{{ order.total_amount }}
+
+                            {% else %}
+
+                                ₹{{ order.price * order.quantity }}
+
+                            {% endif %}
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- DATE -->
+
+                    <td>
+                        {{ order.order_date }}
+                    </td>
+
+
+                    <!-- STATUS -->
+
+                    <td>
+
+                        {% if order.status == "Cancelled" %}
+
+                            <span class="status status-cancelled">
+                                ❌ Cancelled
+                            </span>
+
+                        {% else %}
+
+                            <span class="status status-placed">
+                                ✓ Placed
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                </tr>
+
+
+            {% endfor %}
+
+
+            </tbody>
+
+        </table>
+
+
+    </div>
+
+
+    {% else %}
+
+
+        <div class="no-orders">
+
+            <h2>
+                🛍️ No Orders Found
+            </h2>
+
+            <p>
+                There are currently no customer orders.
+            </p>
+
+        </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+</body>
+
+</html>

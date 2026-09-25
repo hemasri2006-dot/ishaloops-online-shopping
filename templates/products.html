@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Products | IshaLoops</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fff9fc;
+            color: #333;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            background: #ffffff;
+
+            box-shadow:
+                0 2px 12px rgba(0, 0, 0, 0.08);
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1250px;
+
+            height: 90px;
+
+            margin: auto;
+
+            padding: 0 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: Georgia, serif;
+
+            font-size: 32px;
+
+            font-weight: bold;
+
+            color: #c94f78;
+        }
+
+        nav ul {
+            list-style: none;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 22px;
+
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+
+            color: #333;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #d95782;
+        }
+
+
+        /* ================= PAGE TITLE ================= */
+
+        .page-title {
+
+            text-align: center;
+
+            padding: 45px 20px 25px;
+        }
+
+        .page-title h1 {
+
+            margin: 0;
+
+            font-family: Georgia, serif;
+
+            font-size: 40px;
+
+            color: #4d3550;
+        }
+
+        .page-title p {
+
+            margin-top: 10px;
+
+            color: #777;
+
+            font-size: 16px;
+        }
+
+
+        /* ================= SEARCH ================= */
+
+        .search-box {
+
+            display: flex;
+
+            justify-content: center;
+
+            padding: 10px 20px 35px;
+        }
+
+        .search-box form {
+
+            display: flex;
+
+            width: 100%;
+
+            max-width: 600px;
+        }
+
+        .search-box input {
+
+            flex: 1;
+
+            padding: 14px 18px;
+
+            border: 1px solid #ddd;
+
+            border-right: none;
+
+            border-radius: 30px 0 0 30px;
+
+            outline: none;
+
+            font-size: 15px;
+
+            background: white;
+        }
+
+        .search-box input:focus {
+
+            border-color: #d95782;
+        }
+
+        .search-box button {
+
+            padding: 0 25px;
+
+            border: none;
+
+            border-radius: 0 30px 30px 0;
+
+            background: #d95782;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .search-box button:hover {
+
+            background: #bd426b;
+        }
+
+
+        /* ================= PRODUCTS ================= */
+
+        .products {
+
+            max-width: 1250px;
+
+            margin: auto;
+
+            padding: 10px 25px 70px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 28px;
+        }
+
+
+        /* ================= PRODUCT CARD ================= */
+
+        .card {
+
+            background: white;
+
+            border-radius: 16px;
+
+            padding: 15px;
+
+            text-align: center;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+
+            transform: translateY(-7px);
+
+            box-shadow:
+                0 12px 28px rgba(217, 87, 130, 0.18);
+        }
+
+
+        /* ================= PRODUCT IMAGE ================= */
+
+        .card img {
+
+            width: 100%;
+
+            height: 250px;
+
+            object-fit: cover;
+
+            border-radius: 12px;
+
+            display: block;
+
+            transition:
+                transform 0.35s ease,
+                filter 0.35s ease;
+        }
+
+        .card:hover img {
+
+            transform: scale(1.05);
+
+            filter: brightness(1.06);
+        }
+
+
+        /* ================= NO IMAGE ================= */
+
+        .no-image {
+
+            width: 100%;
+
+            height: 250px;
+
+            border-radius: 12px;
+
+            background: #f5edf2;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: #888;
+        }
+
+
+        /* ================= PRODUCT INFO ================= */
+
+        .card h3 {
+
+            margin: 18px 5px 10px;
+
+            font-size: 19px;
+
+            color: #4d3550;
+        }
+
+        .card p {
+
+            margin: 7px 0;
+
+            color: #666;
+
+            font-size: 14px;
+        }
+
+        .card p strong {
+
+            color: #444;
+        }
+
+
+        /* ================= BUTTONS ================= */
+
+        .btn {
+
+            display: block;
+
+            text-decoration: none;
+
+            padding: 11px 15px;
+
+            margin-top: 10px;
+
+            border-radius: 25px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            background: #d95782;
+
+            color: white;
+
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+
+            background: #bd426b;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* View Details Button */
+
+        .card a[href*="product/"] {
+
+            background: #f3dce6;
+
+            color: #a63e65;
+        }
+
+        .card a[href*="product/"]:hover {
+
+            background: #e9c5d4;
+
+            color: #8e3155;
+        }
+
+
+        /* ================= OUT OF STOCK ================= */
+
+        .out-of-stock {
+
+            margin-top: 15px !important;
+
+            padding: 10px;
+
+            background: #f8e4e8;
+
+            color: #c43e5b !important;
+
+            border-radius: 20px;
+
+            font-weight: bold;
+        }
+
+
+        /* ================= NO PRODUCTS ================= */
+
+        .no-products {
+
+            grid-column: 1 / -1;
+
+            text-align: center;
+
+            padding: 80px 20px;
+        }
+
+        .no-products h2 {
+
+            color: #555;
+
+            margin-bottom: 20px;
+        }
+
+        .no-products .btn {
+
+            display: inline-block;
+
+            padding: 12px 25px;
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 1000px) {
+
+            .products {
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 750px) {
+
+            nav {
+
+                height: auto;
+
+                padding: 18px;
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+            nav ul {
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+
+                gap: 14px;
+            }
+
+            .products {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .card img,
+            .no-image {
+
+                height: 220px;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .products {
+
+                grid-template-columns: 1fr;
+            }
+
+            .page-title h1 {
+
+                font-size: 32px;
+            }
+
+            .search-box form {
+
+                max-width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <nav>
+
+        <div class="logo">
+            IshaLoops
+        </div>
+
+
+        <ul>
+
+            <li>
+                <a href="/">Home</a>
+            </li>
+
+            <li>
+                <a href="/products">Products</a>
+            </li>
+
+            <li>
+                <a href="/cart">🛒 My Cart</a>
+            </li>
+
+            <li>
+                <a href="/my_orders">My Orders</a>
+            </li>
+
+            <li>
+                <a href="/login">Login</a>
+            </li>
+
+            <li>
+                <a href="/register">Register</a>
+            </li>
+
+            <li>
+                <a href="/logout">Logout</a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+
+<!-- ================= PAGE TITLE ================= -->
+
+<section class="page-title">
+
+    <h1>
+        Our Collection 🎀
+    </h1>
+
+    <p>
+        Discover beautiful scrunchies & bows
+        made especially for you.
+    </p>
+
+</section>
+
+
+<!-- ================= SEARCH ================= -->
+
+<div class="search-box">
+
+    <form
+        action="/products"
+        method="GET"
+    >
+
+        <input
+            type="text"
+            name="search"
+            placeholder="Search Scrunchies & Bows..."
+            value="{{ search }}"
+        >
+
+        <button type="submit">
+            🔍 Search
+        </button>
+
+    </form>
+
+</div>
+
+
+<!-- ================= PRODUCTS ================= -->
+
+<div class="products">
+
+
+    {% if products %}
+
+
+        {% for product in products %}
+
+
+        <div class="card">
+
+
+            <!-- Product Image -->
+
+            {% if product.image %}
+
+                <img
+                    src="{{ url_for(
+                        'static',
+                        filename='uploads/' + product.image
+                    ) }}"
+                    alt="{{ product.product_name }}"
+                >
+
+            {% else %}
+
+                <div class="no-image">
+                    No Image
+                </div>
+
+            {% endif %}
+
+
+            <!-- Product Name -->
+
+            <h3>
+                {{ product.product_name }}
+            </h3>
+
+
+            <!-- Price -->
+
+            <p>
+
+                <strong>
+                    Price:
+                </strong>
+
+                ₹{{ product.price }}
+
+            </p>
+
+
+            <!-- Stock -->
+
+            <p>
+
+                <strong>
+                    Stock:
+                </strong>
+
+                {{ product.quantity }}
+
+            </p>
+
+
+            <!-- View Details -->
+
+            <a
+                href="/product/{{ product.id }}"
+                class="btn"
+            >
+                👁️ View Details
+            </a>
+
+
+            <!-- Add To Cart -->
+
+            {% if product.quantity > 0 %}
+
+                <a
+                    href="/add_to_cart/{{ product.id }}"
+                    class="btn"
+                >
+                    🛒 Add to Cart
+                </a>
+
+            {% else %}
+
+                <p class="out-of-stock">
+                    ❌ Out of Stock
+                </p>
+
+            {% endif %}
+
+
+        </div>
+
+
+        {% endfor %}
+
+
+    {% else %}
+
+
+        <div class="no-products">
+
+            <h2>
+                No Products Found 😔
+            </h2>
+
+            <a
+                href="/products"
+                class="btn"
+            >
+                View All Products
+            </a>
+
+        </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+</body>
+
+</html>

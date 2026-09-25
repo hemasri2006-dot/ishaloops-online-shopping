@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Order Confirmation | IshaLoops</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fff7fa;
+            color: #3d2730;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            background: white;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        nav {
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 35px;
+        }
+
+        .logo {
+            font-family: Georgia, serif;
+            font-size: 30px;
+            font-weight: bold;
+            color: #d64c7b;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #4d3540;
+            font-weight: 600;
+        }
+
+        nav ul li a:hover {
+            color: #d64c7b;
+        }
+
+
+        /* =========================
+           SUCCESS PAGE
+        ========================= */
+
+        .checkout-page {
+
+            min-height: calc(100vh - 70px);
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 40px 20px;
+        }
+
+
+        .success-box {
+
+            width: 100%;
+
+            max-width: 650px;
+
+            background: white;
+
+            text-align: center;
+
+            padding: 45px 35px;
+
+            border-radius: 25px;
+
+            box-shadow:
+                0 15px 45px rgba(120, 55, 80, 0.15);
+        }
+
+
+        /* =========================
+           SUCCESS ICON
+        ========================= */
+
+        .success-icon {
+
+            width: 90px;
+
+            height: 90px;
+
+            margin: 0 auto 20px;
+
+            border-radius: 50%;
+
+            background: #e7f8ed;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 45px;
+        }
+
+
+        .success-box h1 {
+
+            font-family: Georgia, serif;
+
+            font-size: 36px;
+
+            color: #3d2730;
+
+            margin: 10px 0 12px;
+        }
+
+
+        .success-message {
+
+            color: #80616d;
+
+            font-size: 16px;
+
+            margin-bottom: 28px;
+        }
+
+
+        .success-message strong {
+
+            color: #d64c7b;
+        }
+
+
+        /* =========================
+           ORDER DETAILS
+        ========================= */
+
+        .order-info {
+
+            background: #fff4f8;
+
+            border-radius: 16px;
+
+            padding: 22px;
+
+            margin: 25px 0;
+
+            text-align: left;
+        }
+
+
+        .order-info p {
+
+            margin: 13px 0;
+
+            font-size: 16px;
+        }
+
+
+        .order-label {
+
+            font-weight: bold;
+
+            color: #513943;
+        }
+
+
+        .order-value {
+
+            color: #d64c7b;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           PAYMENT STATUS
+        ========================= */
+
+        .payment-box {
+
+            margin-top: 20px;
+
+            padding: 18px;
+
+            border-radius: 14px;
+
+            background: #fffaf0;
+
+            border: 1px solid #f0dfb5;
+
+            text-align: left;
+        }
+
+
+        .payment-box h3 {
+
+            margin: 0 0 12px;
+
+            color: #513943;
+
+            font-size: 18px;
+        }
+
+
+        .payment-status {
+
+            display: inline-block;
+
+            padding: 7px 16px;
+
+            border-radius: 20px;
+
+            background: #fff0c7;
+
+            color: #856404;
+
+            font-weight: bold;
+
+            font-size: 14px;
+        }
+
+
+        .cod-note {
+
+            margin-top: 10px;
+
+            color: #80616d;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           BUTTONS
+        ========================= */
+
+        .checkout-buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+            margin-top: 28px;
+        }
+
+
+        .checkout-buttons .btn {
+
+            display: inline-block;
+
+            padding: 13px 22px;
+
+            border-radius: 25px;
+
+            background: #d64c7b;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+
+        .checkout-buttons .btn:hover {
+
+            background: #b93662;
+
+            transform: translateY(-2px);
+        }
+
+
+        .checkout-buttons .secondary-btn {
+
+            background: #8d6875;
+        }
+
+
+        .checkout-buttons .secondary-btn:hover {
+
+            background: #70505c;
+        }
+
+
+        .thank-you {
+
+            margin-top: 28px;
+
+            color: #d64c7b;
+
+            font-family: Georgia, serif;
+
+            font-size: 18px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            nav {
+                padding: 12px 18px;
+            }
+
+            .logo {
+                font-size: 27px;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .checkout-page {
+                padding: 25px 15px;
+            }
+
+            .success-box {
+                padding: 35px 20px;
+                border-radius: 20px;
+            }
+
+            .success-icon {
+                width: 75px;
+                height: 75px;
+                font-size: 38px;
+            }
+
+            .success-box h1 {
+                font-size: 28px;
+            }
+
+            .success-message {
+                font-size: 14px;
+            }
+
+            .order-info p {
+                font-size: 14px;
+            }
+
+            .checkout-buttons {
+                flex-direction: column;
+            }
+
+            .checkout-buttons .btn {
+                width: 100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <nav>
+
+        <div class="logo">
+            IshaLoops
+        </div>
+
+
+        <ul>
+
+            <li>
+                <a href="/">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="/products">
+                    Products
+                </a>
+            </li>
+
+            <li>
+                <a href="/cart">
+                    My Cart
+                </a>
+            </li>
+
+            <li>
+                <a href="/my_orders">
+                    My Orders
+                </a>
+            </li>
+
+            <li>
+                <a href="/logout">
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =========================
+     ORDER SUCCESS
+========================= -->
+
+<main class="checkout-page">
+
+
+    <div class="success-box">
+
+
+        <!-- SUCCESS ICON -->
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+
+        <h1>
+            Order Placed Successfully!
+        </h1>
+
+
+        <p class="success-message">
+            Thank you for shopping with
+            <strong>IshaLoops</strong> 💗
+        </p>
+
+
+
+        <!-- ORDER INFORMATION -->
+
+        <div class="order-info">
+
+            <p>
+
+                <span class="order-label">
+                    Order ID:
+                </span>
+
+                <span class="order-value">
+                    #{{ order_id }}
+                </span>
+
+            </p>
+
+
+            <p>
+
+                <span class="order-label">
+                    Total Amount:
+                </span>
+
+                <span class="order-value">
+                    ₹{{ total_amount }}
+                </span>
+
+            </p>
+
+        </div>
+
+
+
+        <!-- PAYMENT INFORMATION -->
+
+        <div class="payment-box">
+
+            <h3>
+                💳 Payment Information
+            </h3>
+
+
+            <p>
+
+                <strong>
+                    Payment Method:
+                </strong>
+
+                Cash on Delivery
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Payment Status:
+                </strong>
+
+                <span class="payment-status">
+                    🟡 Pending
+                </span>
+
+            </p>
+
+
+            <p class="cod-note">
+
+                Your payment will be collected when
+                your order is delivered.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- BUTTONS -->
+
+        <div class="checkout-buttons">
+
+
+            <a
+                href="/products"
+                class="btn"
+            >
+                🛍️ Continue Shopping
+            </a>
+
+
+            <a
+                href="/my_orders"
+                class="btn secondary-btn"
+            >
+                📦 My Orders
+            </a>
+
+
+        </div>
+
+
+
+        <p class="thank-you">
+            🎀 Thank you for choosing IshaLoops!
+        </p>
+
+
+    </div>
+
+
+</main>
+
+
+</body>
+
+</html>

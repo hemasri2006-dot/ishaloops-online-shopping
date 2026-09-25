@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Product</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+
+<header>
+    <nav>
+    <div class="logo">IshaLoops</div>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/products">Products</a></li>
+        <li><a href="/cart">My Cart</a></li>
+        <li><a href="/my_orders">My Orders</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+</nav>
+</header>
+
+
+<div class="form-container">
+    <h1>Add New Product</h1>
+    <form method="POST">
+
+
+        <label>Product Name</label>
+        <input type="text" name="product_name" required>
+        <label>Price</label>
+        <input type="number" name="price" step="0.01" required>
+
+
+        <label>Quantity</label>
+        <input type="number" name="quantity" required>
+
+        <label>Image Filename</label>
+        <input type="text" name="image" placeholder="example: black_scrunchie.jpg" required>
+
+
+        <button type="submit">Add Product</button>
+
+
+    </form>    
+    <br>
+
+
+    <a href="/admin">⬅ Back to Admin</a>
+
+
+</div>
+
+
+</body>
+</html>

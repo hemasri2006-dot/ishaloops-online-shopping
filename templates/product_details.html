@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{{ product.product_name }} - IshaLoops</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fff9fc;
+            color: #333;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            background: #ffffff;
+
+            box-shadow:
+                0 2px 12px rgba(0, 0, 0, 0.08);
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1250px;
+
+            height: 90px;
+
+            margin: auto;
+
+            padding: 0 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: Georgia, serif;
+
+            font-size: 32px;
+
+            font-weight: bold;
+
+            color: #c94f78;
+        }
+
+        nav ul {
+            list-style: none;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 22px;
+
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+
+            color: #333;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #d95782;
+        }
+
+
+        /* ================= PRODUCT DETAILS ================= */
+
+        .product-details-container {
+
+            max-width: 1150px;
+
+            margin: 60px auto;
+
+            padding: 0 25px;
+        }
+
+
+        .product-details-card {
+
+            background: white;
+
+            border-radius: 22px;
+
+            padding: 35px;
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 55px;
+
+            align-items: center;
+
+            box-shadow:
+                0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+
+        /* ================= PRODUCT IMAGE ================= */
+
+        .product-details-image {
+
+            width: 100%;
+
+            height: 500px;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            background: #f8eef3;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .product-details-image img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+
+            transition:
+                transform 0.4s ease,
+                filter 0.4s ease;
+        }
+
+
+        .product-details-image:hover img {
+
+            transform: scale(1.06);
+
+            filter: brightness(1.05);
+        }
+
+
+        /* ================= PRODUCT INFORMATION ================= */
+
+        .product-details-info {
+
+            padding: 10px;
+        }
+
+
+        .product-details-info h1 {
+
+            font-family: Georgia, serif;
+
+            font-size: 40px;
+
+            color: #4d3550;
+
+            margin: 0 0 15px;
+        }
+
+
+        .product-details-info h2 {
+
+            font-size: 30px;
+
+            color: #d95782;
+
+            margin: 0 0 25px;
+        }
+
+
+        .stock-info {
+
+            font-size: 16px;
+
+            color: #666;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* ================= DESCRIPTION ================= */
+
+        .product-description {
+
+            margin-top: 25px;
+
+            padding: 20px;
+
+            background: #fff4f8;
+
+            border-left: 4px solid #d95782;
+
+            border-radius: 10px;
+        }
+
+
+        .product-description h3 {
+
+            margin: 0 0 10px;
+
+            color: #4d3550;
+
+            font-size: 20px;
+        }
+
+
+        .product-description p {
+
+            margin: 0;
+
+            line-height: 1.7;
+
+            color: #666;
+
+            font-size: 15px;
+        }
+
+
+        /* ================= STOCK ================= */
+
+        .available {
+
+            display: inline-block;
+
+            margin-top: 22px;
+
+            padding: 8px 16px;
+
+            border-radius: 20px;
+
+            background: #e9f7ed;
+
+            color: #238443;
+
+            font-weight: bold;
+
+            font-size: 14px;
+        }
+
+
+        .out-of-stock {
+
+            display: inline-block;
+
+            margin-top: 22px;
+
+            padding: 10px 18px;
+
+            border-radius: 20px;
+
+            background: #fbe4e8;
+
+            color: #c43e5b;
+
+            font-weight: bold;
+        }
+
+
+        /* ================= ADD TO CART ================= */
+
+        .add-cart-btn {
+
+            display: block;
+
+            width: 100%;
+
+            max-width: 320px;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            padding: 15px 25px;
+
+            margin-top: 20px;
+
+            border-radius: 30px;
+
+            background: #d95782;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+
+        .add-cart-btn:hover {
+
+            background: #bd426b;
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 8px 18px rgba(217, 87, 130, 0.25);
+        }
+
+
+        /* ================= BACK LINK ================= */
+
+        .back-link {
+
+            display: inline-block;
+
+            margin-top: 25px;
+
+            text-decoration: none;
+
+            color: #a63e65;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+
+        .back-link:hover {
+
+            color: #d95782;
+
+            transform: translateX(-3px);
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 850px) {
+
+            nav {
+
+                height: auto;
+
+                padding: 18px;
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+
+            nav ul {
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+
+                gap: 14px;
+            }
+
+
+            .product-details-card {
+
+                grid-template-columns: 1fr;
+
+                gap: 30px;
+
+                padding: 20px;
+            }
+
+
+            .product-details-image {
+
+                height: 400px;
+            }
+
+
+            .product-details-info h1 {
+
+                font-size: 32px;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .product-details-container {
+
+                margin: 30px auto;
+
+                padding: 0 15px;
+            }
+
+
+            .product-details-image {
+
+                height: 320px;
+            }
+
+
+            .product-details-info h1 {
+
+                font-size: 28px;
+            }
+
+
+            .product-details-info h2 {
+
+                font-size: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <nav>
+
+        <div class="logo">
+            IshaLoops
+        </div>
+
+
+        <ul>
+
+            <li>
+                <a href="/">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="/products">
+                    Products
+                </a>
+            </li>
+
+            <li>
+                <a href="/cart">
+                    🛒 My Cart
+                </a>
+            </li>
+
+            <li>
+                <a href="/my_orders">
+                    My Orders
+                </a>
+            </li>
+
+            <li>
+                <a href="/logout">
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+
+<!-- ================= PRODUCT DETAILS ================= -->
+
+<div class="product-details-container">
+
+
+    <div class="product-details-card">
+
+
+        <!-- PRODUCT IMAGE -->
+
+        <div class="product-details-image">
+
+            {% if product.image %}
+
+                <img
+                    src="{{ url_for(
+                        'static',
+                        filename='uploads/' + product.image
+                    ) }}"
+                    alt="{{ product.product_name }}"
+                >
+
+            {% else %}
+
+                <p>
+                    No Image Available
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- PRODUCT INFORMATION -->
+
+        <div class="product-details-info">
+
+
+            <h1>
+                {{ product.product_name }}
+            </h1>
+
+
+            <h2>
+                ₹{{ product.price }}
+            </h2>
+
+
+            <p class="stock-info">
+
+                Available Stock:
+
+                <strong>
+                    {{ product.quantity }}
+                </strong>
+
+            </p>
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="product-description">
+
+                <h3>
+                    Product Description
+                </h3>
+
+                <p>
+                    {{ product.description }}
+                </p>
+
+            </div>
+
+
+            <!-- STOCK STATUS -->
+
+            {% if product.quantity > 0 %}
+
+                <p class="available">
+                    ✓ In Stock
+                </p>
+
+
+                <!-- ADD TO CART -->
+
+                <a
+                    href="/add_to_cart/{{ product.id }}"
+                    class="add-cart-btn"
+                >
+                    🛒 Add to Cart
+                </a>
+
+            {% else %}
+
+                <p class="out-of-stock">
+                    ❌ Out of Stock
+                </p>
+
+            {% endif %}
+
+
+            <!-- BACK -->
+
+            <a
+                href="/products"
+                class="back-link"
+            >
+                ← Back to Products
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

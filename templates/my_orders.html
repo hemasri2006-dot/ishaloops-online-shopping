@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Orders - IshaLoops</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <nav>
+
+        <div class="logo">
+            IshaLoops
+        </div>
+
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/cart">My Cart</a></li>
+            <li><a href="/my_orders">My Orders</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+
+    </nav>
+</header>
+
+
+<div class="orders-container">
+
+    <h1>📦 My Orders</h1>
+
+    {% if orders %}
+
+        {% for order in orders %}
+
+        <div class="order-card">
+
+            <!-- Product Image -->
+            <div class="order-image">
+
+                {% if order.image %}
+
+                    <img
+                        src="{{ url_for('static', filename='uploads/' + order.image) }}"
+                        alt="{{ order.product_name }}"
+                    >
+
+                {% else %}
+
+                    <p>No Image</p>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- Order Details -->
+            <div class="order-details">
+
+                <div class="order-header">
+
+                    <h2>
+                        Order #{{ order.order_id }}
+                    </h2>
+
+                    <span>
+                        {{ order.order_date }}
+                    </span>
+
+                </div>
+
+
+                <h3>
+                    {{ order.product_name }}
+                </h3>
+
+
+                <p>
+                    Price:
+                    ₹{{ order.price }}
+                </p>
+
+
+                <p>
+                    Quantity:
+                    {{ order.quantity }}
+                </p>
+
+
+                <p class="order-total">
+                    Total:
+                    ₹{{ order.price * order.quantity }}
+                </p>
+                <p>
+                    Status:
+                    <strong>{{ order.status }}</strong>
+                </p>
+                {% if order.status == 'Placed' %}
+                <a
+                href="/cancel_order/{{ order.order_id }}"
+                class="btn cancel-btn"
+                onclick="return confirm('Are you sure you want to cancel this order?');"
+                >
+                ❌ Cancel Order
+            </a>
+            {% elif order.status == 'Cancelled' %}
+            <p class="out-of-stock">
+                ❌ Order Cancelled
+            </p>
+            {% endif %}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="no-orders">
+
+            <h2>🛍️ No Orders Yet</h2>
+
+            <p>You haven't placed any orders yet.</p>
+
+            <a href="/products" class="btn">
+                Start Shopping
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>
